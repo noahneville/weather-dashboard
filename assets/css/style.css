@@ -1,0 +1,11 @@
+.low-UV {
+    background-color: rgb(35, 185, 35, .7);
+}
+
+.mod-UV {
+    background-color: rgb(232, 152, 46, .7); 
+}
+
+.high-UV {
+    background-color: rgba(209, 27, 27, 0.6);
+}
