@@ -23,31 +23,35 @@
             <div class="col-3">
                 <h2>Search for City</h2>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Enter City Name Here" aria-label="city search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <span class="input-group-text" id="basic-addon2"></span>
-                    </div>
-                    <form class="search-history"></form>
+                    <form id="search-city">
+                        <input name="cityInput" id="cityInput" type="text" autofocus="true" class="form-input" />
+                        <button type="submit" class="btn">Search</button>
+                        </div>
+                    </form>
+                       
+        
                   </div>
 
             </div>
+            <div class="row">
             <div class="col-9">
                 <div class="row">
                     <div class="col-12 today-weather">
-                        <h1 class = "city-name align-middle"></h1>
-                        <p class = "dateArea"></p>
+                        <h1 class = "align-middle" id = "city-name"></h1>
+                        <p class = "dateArea"> </p>
                         <img class="iconArea">
-                        <p class = "tempArea">test 1</p>
-                        <p class = "humidArea">test 2</p>
-                        <p class = "windArea">test 3</p>
-                        <p class = "uvArea">test 4</p>
+                        <p class = "tempArea"></p>
+                        <p class = "humidArea"></p>
+                        <p class = "windArea"></p>
+                        <p class = "uvArea"></p>
                     </div>
                 </div>
+            </div>
                 <div class="row">
                     <h2>5 Day Forecast</h2>
                 </div>
-                <div class="row 5-day-forecast">
-                    <div class= "col forecast-1"></div>
+                <div class="row" id="forecastContainer">
+                    <div class= "col forecast-1"> </div>
                     <div class= "col forecast-2"></div>
                     <div class= "col forecast-3"></div>
                     <div class= "col forecast-4"></div>
