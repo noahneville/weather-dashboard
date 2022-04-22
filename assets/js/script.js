@@ -27,16 +27,9 @@ async function getWeatherData(city) {
   console.log(weatherObject);
 
   renderToday(weatherObject);
-  getForecast(weatherObject);
+  renderForecast(weatherObject);
 }
 
-// function getForecast(data) {
-  
-//   for (let index = 1; index < 6; index++) {
-//     forecastContainer.textContent = " ";
-//     renderForecast(data.daily[index]);
-//   }
-// }
 
 function renderToday(data) {
   let todayObject = data;
@@ -97,7 +90,7 @@ function renderToday(data) {
 //   cardIndex++;
 // }
 
-function getForecast(data) {
+function renderForecast(data) {
   for (let i = 1; i < 6; i++) {
     let forecastCard = document.querySelector(`.forecast-${i}`);
     console.log(forecastCard);
