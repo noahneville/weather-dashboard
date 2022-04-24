@@ -44,7 +44,7 @@ function renderToday(data) {
   currentWindEl.textContent = "Wind: " + todayObject.current.wind_speed + "MPH";
   currentHumidEl.textContent = "Humidity: " + todayObject.current.humidity + "%";
   console.log(currentHumidEl);
-  currentUVEl.textContent = todayObject.current.uvi;
+  currentUVEl.textContent = "UV Index: " + todayObject.current.uvi;
 
   if (todayObject.current.uvi < 3) {
     currentUVEl.classList.add("low-UV");
