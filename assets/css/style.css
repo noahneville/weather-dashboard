@@ -9,3 +9,9 @@
 .high-UV {
     background-color: rgba(209, 27, 27, 0.6);
 }
+
+ul.searched-cities {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }

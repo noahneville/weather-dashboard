@@ -26,44 +26,42 @@
                     <form id="search-city">
                         <input name="cityInput" id="cityInput" type="text" autofocus="true" class="form-input" />
                         <button type="submit" class="btn">Search</button>
-                        </div>
                     </form>
-                       
-        
-                  </div>
-
+                    <ul class="searched-cities"></ul>
+                </div>
             </div>
-            <div class="row">
+
             <div class="col-9">
-                <div class="row">
-                    <div class="col-12 today-weather">
-                        <h1 class = "align-middle" id = "city-name"></h1>
-                        <p class = "dateArea"> </p>
-                        <img class="iconArea">
-                        <p class = "tempArea"></p>
-                        <p class = "humidArea"></p>
-                        <p class = "windArea"></p>
-                        <p class = "uvArea"></p>
-                    </div>
+                <!-- <div class="row"> -->
+                <div class="today-weather">
+                    <h1 class = "align-middle" id = "city-name"></h1>
+                    <p class = "dateArea"></p>
+                    <img class="iconArea">
+                    <p class = "tempArea"></p>
+                    <p class = "humidArea"></p>
+                    <p class = "windArea"></p>
+                    <p class = "uvArea"></p>
                 </div>
             </div>
-                <div class="row">
-                    <h2>5 Day Forecast</h2>
-                </div>
-                <div class="row" id="forecastContainer">
-                    <div class= "col forecast-1"> </div>
-                    <div class= "col forecast-2"></div>
-                    <div class= "col forecast-3"></div>
-                    <div class= "col forecast-4"></div>
-                    <div class= "col forecast-5"></div>
-                </div>
+        </div>
+        <div class="row">
+            <h2>5 Day Forecast</h2>
+        </div>
+            <div class="row" id="forecastContainer">
+            <!-- <div id="forecastContainer"> -->
+                <div class= "col forecast-1"></div>
+                <div class= "col forecast-2"></div>
+                <div class= "col forecast-3"></div>
+                <div class= "col forecast-4"></div>
+                <div class= "col forecast-5"></div>
+            </div>
                 
-            </div>
-        </div> 
-    </div>
-
-    
+        </div>
+    </div> 
 </body>
 
 <script src = "assets/js/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" 
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
+    crossorigin="anonymous"></script>
 </html>

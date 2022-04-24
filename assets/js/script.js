@@ -11,6 +11,9 @@ const currentWindEl = document.querySelector(".windArea");
 const currentUVEl = document.querySelector(".uvArea");
 const todayContainer = document.querySelector(".today-weather");
 const forecastContainer = document.querySelector("#forecastContainer");
+const searchList = document.querySelector(".searched-cities");
+
+const localStorageCities = [];
 
 async function getWeatherData(city) {
   cityEl.textContent = city;
@@ -44,7 +47,7 @@ function renderToday(data) {
   currentWindEl.textContent = "Wind: " + todayObject.current.wind_speed + "MPH";
   currentHumidEl.textContent = "Humidity: " + todayObject.current.humidity + "%";
   console.log(currentHumidEl);
-  currentUVEl.textContent = todayObject.current.uvi;
+  currentUVEl.textContent = "UV Index: " + todayObject.current.uvi;
 
   if (todayObject.current.uvi < 3) {
     currentUVEl.classList.add("low-UV");
@@ -53,47 +56,14 @@ function renderToday(data) {
   } else {
     currentUVEl.classList.add("high-UV");
   }
-
-
 }
 
-// need date, icon, temp, wind, humidity
-// function renderForecast(data) {
-//   let unixDate = data.dt;
-//   console.log(unixDate);
-//   let iconCode = data.weather[0].icon;
-//   let cardIndex = 1;
-//   let forecastCard = document.querySelector(".forecast-" + cardIndex);
-//   console.log(forecastCard);
-
-//   let forecastDate = document.createElement("p");
-//   forecastDate.textContent = moment.unix(unixDate).format("MM/DD/YY");
-//   console.log(forecastDate);
-//     forecastCard.appendChild(forecastDate);
-
-//   let forecastIcon = document.createElement("img");
-//   forecastIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
-//   forecastCard.appendChild(forecastIcon);
-
-//   let forecastTemp = document.createElement("p");
-//   forecastTemp.textContent = "Temperature: " + Math.round(data.temp.day) + "°F";
-//   forecastCard.appendChild(forecastTemp);
-
-//   let forecastWind = document.createElement("p");
-//   forecastWind.textContent = data.wind_speed + "MPH";
-//   forecastCard.appendChild(forecastWind);
-
-//   let forecastHumid = document.createElement("p");
-//   forecastHumid.textContent = data.humidity + "%";
-//   forecastCard.appendChild(forecastHumid);
-
-//   cardIndex++;
-// }
 
 function renderForecast(data) {
   for (let i = 1; i < 6; i++) {
     let forecastCard = document.querySelector(`.forecast-${i}`);
     console.log(forecastCard);
+    $(forecastCard).empty();
     let forecastData = data.daily[i];
     
     let forecastDate = document.createElement("p");
@@ -120,13 +90,42 @@ function renderForecast(data) {
   }
 }
 
+const saveCity = function (city) {
+  let storageKey = city;
+  localStorageCities.unshift(city);
+  localStorage.setItem(`${storageKey}`, storageKey);
+  
+  if (localStorageCities.length > 5) {
+    localStorage.removeItem(`${localStorageCities[4]}`);
+    localStorageCities.pop();
+  }
+  renderCities(localStorageCities);
+};
+
+const renderCities = function (cityArray) {
+  $(searchList).empty();
+  for (let j = 0; j < cityArray.length; j++) {
+    let searchedCity = document.createElement('li');
+    // creates button, gets its text value from local storage
+    let cityBtn = document.createElement('button');
+    cityBtn.textContent = localStorage.getItem(`${cityArray[j]}`);
+    cityBtn.setAttribute('type', 'submit');
+    cityBtn.setAttribute('class', 'cityBtn');
+
+    console.log(cityBtn);
+    searchedCity.appendChild(cityBtn);
+    console.log(searchedCity);
+    searchList.appendChild(searchedCity);
+  }
+}
+
 var formSubmitHandler = function (event) {
     event.preventDefault();
 
     var city = cityInput.value.trim();
     console.log(city);
     if (city) {
-        //todayContainer.textContent = "";
+        saveCity(city);
         getWeatherData(city);
        
 
