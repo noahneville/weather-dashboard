@@ -18,13 +18,24 @@ const localStorageCities = [];
 async function getWeatherData(city) {
   cityEl.textContent = city;
 
-  const weatherURL = await fetch("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=56441d601f3ab1f99b347d66b6005856");
+  const weatherURL = await fetch(
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+      city +
+      "&appid=56441d601f3ab1f99b347d66b6005856"
+  );
   var coordinates = await weatherURL.json();
 
   var lat = coordinates.coord.lat;
   var lon = coordinates.coord.lon;
 
-  const requestURL = await fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey);
+  const requestURL = await fetch(
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+      lat +
+      "&lon=" +
+      lon +
+      "&units=imperial&appid=" +
+      apiKey
+  );
   var weatherObject = await requestURL.json();
 
   console.log(weatherObject);
@@ -32,7 +43,6 @@ async function getWeatherData(city) {
   renderToday(weatherObject);
   renderForecast(weatherObject);
 }
-
 
 function renderToday(data) {
   let todayObject = data;
@@ -42,10 +52,15 @@ function renderToday(data) {
   console.log(unixDate);
   dateEl.textContent = moment.unix(unixDate).format("dddd, MMMM Do, YYYY");
   console.log(dateEl);
-  currentIconEl.setAttribute( "src", "http://openweathermap.org/img/wn/" + iconCode + "@2x.png");
-  currentTempEl.textContent = "Temperature: " + Math.round(todayObject.current.temp) + "°F";
+  currentIconEl.setAttribute(
+    "src",
+    "http://openweathermap.org/img/wn/" + iconCode + "@2x.png"
+  );
+  currentTempEl.textContent =
+    "Temperature: " + Math.round(todayObject.current.temp) + "°F";
   currentWindEl.textContent = "Wind: " + todayObject.current.wind_speed + "MPH";
-  currentHumidEl.textContent = "Humidity: " + todayObject.current.humidity + "%";
+  currentHumidEl.textContent =
+    "Humidity: " + todayObject.current.humidity + "%";
   console.log(currentHumidEl);
   currentUVEl.textContent = "UV Index: " + todayObject.current.uvi;
 
@@ -58,30 +73,33 @@ function renderToday(data) {
   }
 }
 
-
 function renderForecast(data) {
   for (let i = 1; i < 6; i++) {
     let forecastCard = document.querySelector(`.forecast-${i}`);
     console.log(forecastCard);
     $(forecastCard).empty();
     let forecastData = data.daily[i];
-    
+
     let forecastDate = document.createElement("p");
     forecastDate.textContent = moment.unix(forecastData.dt).format("MM/DD/YY");
     console.log(forecastDate);
 
     let forecastIcon = document.createElement("img");
-    forecastIcon.setAttribute("src", `http://openweathermap.org/img/wn/${forecastData.weather[0].icon}@2x.png`);
-    
+    forecastIcon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${forecastData.weather[0].icon}@2x.png`
+    );
+
     let forecastTemp = document.createElement("p");
-    forecastTemp.textContent = "Temperature: " + Math.round(forecastData.temp.day) + "°F";
+    forecastTemp.textContent =
+      "Temperature: " + Math.round(forecastData.temp.day) + "°F";
 
     let forecastWind = document.createElement("p");
     forecastWind.textContent = forecastData.wind_speed + "MPH";
 
     let forecastHumid = document.createElement("p");
     forecastHumid.textContent = forecastData.humidity + "%";
-    
+
     forecastCard.appendChild(forecastDate);
     forecastCard.appendChild(forecastIcon);
     forecastCard.appendChild(forecastTemp);
@@ -94,7 +112,7 @@ const saveCity = function (city) {
   let storageKey = city;
   localStorageCities.unshift(city);
   localStorage.setItem(`${storageKey}`, storageKey);
-  
+
   if (localStorageCities.length > 5) {
     localStorage.removeItem(`${localStorageCities[4]}`);
     localStorageCities.pop();
@@ -105,33 +123,31 @@ const saveCity = function (city) {
 const renderCities = function (cityArray) {
   $(searchList).empty();
   for (let j = 0; j < cityArray.length; j++) {
-    let searchedCity = document.createElement('li');
+    let searchedCity = document.createElement("li");
     // creates button, gets its text value from local storage
-    let cityBtn = document.createElement('button');
+    let cityBtn = document.createElement("button");
     cityBtn.textContent = localStorage.getItem(`${cityArray[j]}`);
-    cityBtn.setAttribute('type', 'submit');
-    cityBtn.setAttribute('class', 'cityBtn');
+    cityBtn.setAttribute("type", "submit");
+    cityBtn.setAttribute("class", "cityBtn");
 
     console.log(cityBtn);
     searchedCity.appendChild(cityBtn);
     console.log(searchedCity);
     searchList.appendChild(searchedCity);
   }
-}
+};
 
 var formSubmitHandler = function (event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    var city = cityInput.value.trim();
-    console.log(city);
-    if (city) {
-        saveCity(city);
-        getWeatherData(city);
-       
-
-    } else {
-        alert("Please search for a city");
-    }
+  var city = cityInput.value.trim();
+  console.log(city);
+  if (city) {
+    saveCity(city);
+    getWeatherData(city);
+  } else {
+    alert("Please search for a city");
+  }
 };
 
 citySearch.addEventListener("submit", formSubmitHandler);
